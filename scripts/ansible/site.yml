@@ -18,7 +18,6 @@
     roles:
       - mysql
       - node_exporter
-      - mysqld_exporter
 
   - name: Install wordpress. app.berillo.kemrsl.ru
     hosts: node04
