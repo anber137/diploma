@@ -126,7 +126,7 @@ Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
 
 ![Alt](pictures/grafana_prometheus.png "Screenshot")
 
-Подключаюсь к `Prometheus` проверяю доступность. Часть `nodes` и `mysql` со `state down` по причине того, что некоторые виртуальные машины включая `mysql` (db01, db02) выключены в целях экономии.
+Подключаюсь к `Prometheus` проверяю доступность. Часть `nodes` и `mysql` со `state down` по причине того, что некоторые виртуальные машины в том числе `mysql` (db01, db02) выключены в целях экономии.
 
 ![Alt](pictures/prometheus.png "Screenshot")
 
