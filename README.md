@@ -90,13 +90,25 @@ Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
 
 Подготовил роль: `proxy_server`. Проверил, что все `A-записи` настроены на внешний адрес `proxy`: `62.84.117.186`.
 
+![Alt](pictures/www_letsencrypt.png "Screenshot")
+
 ## 4. Установка кластера MySQL
 
 Внес соответствующие изменения описанные автором `geerlingguy` в `README.md`. Роль расчитана на `Ubuntu 14.04 and 16.04`, но с `Ubuntu 20.04` проблем не возникло. Создание базы данных, пользователя `wordpress` и назначение прав прописаны в [main.yml]/scripts/ansible/roles/mysql/defaults/main.yml).
 
+Проверяю, что база `wordpress` успешно создана:
+
+*** Все настройки и т. п. выполняются под правами root с сервера, который после сдачи дипломной работы будет зачищен ***
+
+![Alt](pictures/db01_wordpress.png "Screenshot")
+
 ## 5. Установка WordPress
 
 Подготовил роль для установки `WordPress` с соответствующими модулями `php` и подключением к ранее созданной БД. Используется web сервер `apache`. Конфигурационный файл `apache` создается из шаблона: `apache.conf.j2` и соответственно `WordPress` из `wp-config.php.j2`.
+
+Проверяю, что `WordPress` установился и есть подключение к базе данных.
+
+![Alt](pictures/wordpress.png "Screenshot")
 
 ## 6. Установка Gitlab CE и Gitlab Runner
 
@@ -110,4 +122,11 @@ Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
 
 Установка выполнена ролями.
 
+Подключаюсь к `Grafana` по адресу: grafana.berillo.kemrsl.ru. Проверяю доступность `Data Sources / Prometheus`
+
+![Alt](pictures/grafana_prometheus.png "Screenshot")
+
+Подключаюсь к `Prometheus` проверяю доступность. Часть `nodes` и `mysql` со `state down` по причине того, что некоторые виртуальные машины включая `mysql` (db01, db02) выключены в целях экономии.
+
+![Alt](pictures/prometheus.png "Screenshot")
 
