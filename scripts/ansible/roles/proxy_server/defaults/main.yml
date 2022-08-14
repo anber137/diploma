@@ -1,0 +1,43 @@
+---
+nginx_revproxy_sites:
+  www.berillo.kemrsl.ru:
+    domains:
+      - www.berillo.kemrsl.ru
+      - berillo.kemrsl.ru
+    upstreams:
+      - { backend_address: 192.168.101.14, backend_port: 80 }
+    ssl: true
+    letsencrypt: true
+    letsencrypt_email: "berillo@kemrsl.ru"
+  gitlab.berillo.kemrsl.ru:
+    domains:
+      - gitlab.berillo.kemrsl.ru
+    upstreams:
+      - { backend_address: 192.168.101.15, backend_port: 80 }
+    ssl: true
+    letsencrypt: true
+    letsencrypt_email: "berillo@kemrsl.ru"
+  grafana.berillo.kemrsl.ru:
+    domains:
+      - grafana.berillo.kemrsl.ru
+    upstreams:
+      - { backend_address: 192.168.101.17, backend_port: 3000 }
+    ssl: true
+    letsencrypt: true
+    letsencrypt_email: "berillo@kemrsl.ru"
+  prometheus.berillo.kemrsl.ru:
+    domains:
+      - prometheus.berillo.kemrsl.ru
+    upstreams:
+      - { backend_address: 192.168.101.17, backend_port: 9090 }
+    ssl: true
+    letsencrypt: true
+    letsencrypt_email: "berillo@kemrsl.ru"
+  alertmanager.berillo.kemrsl.ru:
+    domains:
+      - alertmanager.berillo.kemrsl.ru
+    upstreams:
+      - { backend_address: 192.168.101.17, backend_port: 9093 }
+    ssl: true
+    letsencrypt: true
+    letsencrypt_email: "berillo@kemrsl.ru"

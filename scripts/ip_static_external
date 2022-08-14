@@ -1,0 +1,11 @@
+id: e9b1jomnb840lk6jtku4
+folder_id: b1gor3n8jb0hhgr1t7qd
+created_at: "2022-08-12T05:44:57Z"
+external_ipv4_address:
+  address: 62.84.117.186
+    zone_id: ru-central1-a
+      requirements: {}
+      reserved: true
+      type: EXTERNAL
+      ip_version: IPV4
+

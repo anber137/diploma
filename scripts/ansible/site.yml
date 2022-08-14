@@ -1,0 +1,67 @@
+---
+  - name: Install proxy. berillo.kemrsl.ru
+    become: true
+    become_user: root
+    remote_user: ubuntu
+    become_method: sudo
+    hosts: node01
+    roles:
+      - proxy_server
+      - node_exporter
+
+  - name: Install mysql (MariaBD) db01.berillo.kemrsl.ru, db02.berillo.kemrsl.ru
+    hosts: node02 node03
+    become: true
+    become_user: root
+    remote_user: ubuntu
+    become_method: sudo
+    roles:
+      - mysql
+      - node_exporter
+      - mysqld_exporter
+
+  - name: Install wordpress. app.berillo.kemrsl.ru
+    hosts: node04
+    become: true
+    become_user: root
+    remote_user: ubuntu
+    become_method: sudo
+    roles:
+      - wordpress
+      - node_exporter
+  
+  - name: Install gitlab. gitlab.berillo.kemrsl.ru 
+    hosts: node05
+    become: true
+    become_user: root
+    remote_user: ubuntu
+    become_method: sudo
+    roles:
+      - gitlab
+      - node_exporter
+    environment:
+      GITLAB_ROOT_PASSWORD: "{{ gitlab_initial_root_password }}"
+      GITLAB_SHARED_RUNNERS_REGISTRATION_TOKEN: "{{ gitlab_runners_registration_token }}"
+
+  - name: Install runner for gitlab. runner.berillo.kemrsl.ru 
+    hosts: node06
+    become: true
+    become_user: root
+    remote_user: ubuntu
+    become_method: sudo
+    roles:
+      - runner
+      - node_exporter
+
+  - name: Install prometheus, alertmanager, grafana. monitoring.berillo.kemrsl.ru
+    hosts: node07
+    become: true
+    become_user: root
+    remote_user: ubuntu
+    become_method: sudo
+    roles:
+      - prometheus
+      - alertmanager
+      - grafana
+      - node_exporter
+ 

@@ -1,0 +1,7 @@
+192.168.101.11 proxy          node01
+192.168.101.12 db01           node02
+192.168.102.13 db02           node03
+192.168.101.14 www            node04
+192.168.101.15 gitlab         node05
+192.168.101.16 gitlab_runner  node06
+192.168.101.17 prometheus     node07
