@@ -221,3 +221,9 @@ phpinfo(INFO_MODULES);
 
 Виртуальные машины не нагружались, изменил знак в условии алерта.
 
+Включил все виртуальные машины:
+
+![Alt](pictures/prometheus_all_up.png "Screenshot")
+
+![Alt](pictures/grafana_all_up.png "Screenshot")
+
