@@ -1,0 +1,18 @@
+---
+# https://gist.github.com/qutek/fcdc1aad92059c00ad9d7b93049d48dd
+# https://superuser.com/questions/430994/rsync-as-another-user-www-data
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
+stages:
+  - deploy
+
+deploy-job:
+  stage: deploy
+  script:
+    - rsync --rsync-path 'sudo -u www-data rsync' -e ssh --chmod=D0750,F0640 -ratv --progress --exclude='.git' --exclude='README.md' ./*  ubuntu@app.berillo.kemrsl.ru:/var/www/www.berillo.kemrsl.ru/wordpress/

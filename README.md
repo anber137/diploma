@@ -116,7 +116,51 @@ Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
 
 В соответствии с описанием для `Gitlab` и `Gitlab Runner` указаны `registration_token` `runner`. 
 
-Настройку выполненял аналогичным образом с [ДЗ 9.5](https://gitlab.com/anberg137/r95).
+Создаю новую переменную `SSH_PRIVATE_KEY`, копирую ключ.
+
+Создаю новый проект `prod`.
+
+Построил pipeline доставки кода в среду эксплуатации:
+
+```yaml
+---
+# https://gist.github.com/qutek/fcdc1aad92059c00ad9d7b93049d48dd
+# https://superuser.com/questions/430994/rsync-as-another-user-www-data
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
+stages:
+  - deploy
+
+deploy-job:
+  stage: deploy
+  script:
+    - rsync --rsync-path 'sudo -u www-data rsync' -e ssh --chmod=D0750,F0640 -ratv --progress --exclude='.git' --exclude='README.md' ./*  ubuntu@app.berillo.kemrsl.ru:/var/www/www.berillo.kemrsl.ru/wordpress/
+```
+
+В `before_script` устанавливается ssh, копируется сертификат, отключается запрос на принятия ключа.
+С помощью команды rsync файлы доставляются в `app.berillo.kemrsl.ru` в директорию с `wordpress`. Владелец файлов - пользователь `www-data`. Устанавливается права доступа `--chmod=D0750,F0640` для файлов 640, для директорий 750. Включен прогресс, исключается .git и файл `README.md`. Включена рекурсия `-r`, дополнительная информация `-v`, `archive mode` `-a`, сохранение времени внесения изменений `-t`.
+
+
+Создаю новый файл `info.php` со следюущим содержанием: 
+
+```php
+<?php
+phpinfo();
+phpinfo(INFO_MODULES);
+?>
+```
+
+Выполняю `commit`.
+
+Проверяю доступность информации о `php` и модулях по следующему `URL`: `www.berillo.kemrsl.ru/info.php`
+
+
 
 ## 7. Установка Prometheus, Alert Manager, Node Exporter и Grafana
 

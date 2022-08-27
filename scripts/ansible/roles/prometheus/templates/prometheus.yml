@@ -29,7 +29,7 @@ scrape_configs:
     static_configs:
       - targets: ["localhost:9090"]
 
-  - job_name: "nodes"
+  - job_name: nodes
     scrape_interval: 5s
     static_configs:
       - targets: ["berillo.kemrsl.ru:9100"]
@@ -40,8 +40,3 @@ scrape_configs:
       - targets: ["runner.berillo.kemrsl.ru:9100"]
       - targets: ["monitoring.berillo.kemrsl.ru:9100"]
 
-  - job_name: "mysql"
-    scrape_interval: 5s
-    static_configs:
-      - targets: ["db01.berillo.kemrsl.ru:9104"]
-      - targets: ["db02.berillo.kemrsl.ru:9104"]
