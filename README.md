@@ -191,7 +191,7 @@ phpinfo(INFO_MODULES);
 ![Alt](pictures/grafana_start.png "Screenshot")
 
 
-Подключаюсь к `Prometheus` проверяю доступность. Часть `nodes` и `mysql` со `state down` по причине того, что некоторые виртуальные машины в том числе `mysql` (db02) выключены в целях экономии.
+Подключаюсь к `Prometheus` проверяю доступность. Часть `nodes` со `state down` по причине того, что некоторые виртуальные машины выключены в целях экономии.
 
 ![Alt](pictures/prometheus_start.png "Screenshot")
 
