@@ -116,11 +116,24 @@ Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
 
 В соответствии с описанием для `Gitlab` и `Gitlab Runner` указаны `registration_token` `runner`. 
 
+Проверяю, что `gitlab` доступен по адресу: `gitlab.berillo.kemrsl.ru` и ssl сертификат действующий.
+
+![Alt](pictures/gitlab_ssl.png "Screenshot")
+
+Проверяю `runner`
+
+![Alt](pictures/runner.png "Screenshot")
+
+
 Создаю новую переменную `SSH_PRIVATE_KEY`, копирую ключ.
+
+![Alt](pictures/gitlab_ssh.png "Screenshot")
 
 Создаю новый проект `prod`.
 
 Построил pipeline доставки кода в среду эксплуатации:
+
+![Alt](pictures/gitlab_pipeline.png "Screenshot")
 
 ```yaml
 ---
@@ -156,23 +169,55 @@ phpinfo(INFO_MODULES);
 ?>
 ```
 
+![Alt](pictures/gitlab_info.png "Screenshot")
+
 Выполняю `commit`.
+
+![Alt](pictures/gitlab_commit.png "Screenshot")
+
+![Alt](pictures/gitlab_job_info.png "Screenshot")
+
 
 Проверяю доступность информации о `php` и модулях по следующему `URL`: `www.berillo.kemrsl.ru/info.php`
 
-
+![Alt](pictures/gitlab_info_check.png "Screenshot")
 
 ## 7. Установка Prometheus, Alert Manager, Node Exporter и Grafana
 
 Установка выполнена ролями.
 
-Подключаюсь к `Grafana` по адресу: grafana.berillo.kemrsl.ru. Проверяю доступность `Data Sources / Prometheus`
+Подключаюсь к `Grafana` по адресу: `grafana.berillo.kemrsl.ru`. Проверяю доступность.
 
-![Alt](pictures/grafana_prometheus.png "Screenshot")
+![Alt](pictures/grafana_start.png "Screenshot")
 
-![Alt](pictures/nodes_grafana.png "Screenshot")
 
-Подключаюсь к `Prometheus` проверяю доступность. Часть `nodes` и `mysql` со `state down` по причине того, что некоторые виртуальные машины в том числе `mysql` (db01, db02) выключены в целях экономии.
+Подключаюсь к `Prometheus` проверяю доступность. Часть `nodes` и `mysql` со `state down` по причине того, что некоторые виртуальные машины в том числе `mysql` (db02) выключены в целях экономии.
 
-![Alt](pictures/prometheus.png "Screenshot")
+![Alt](pictures/prometheus_start.png "Screenshot")
+
+Проверяю доступность `alertmanager`
+
+![Alt](pictures/alertmanager_start.png "Screenshot")
+
+Проверяю набор правил `Alert Manager`
+
+![Alt](pictures/alert_rules.png "Screenshot")
+
+Проверяю работоспособность правил на выключенных виртуальных машинах:
+
+![Alt](pictures/pending_prometheus.png "Screenshot")
+
+![Alt](pictures/pending_grafana.png "Screenshot")
+
+![Alt](pictures/firing_prometheus.png "Screenshot")
+
+![Alt](pictures/firing_grafana.png "Screenshot")
+
+Проверяю `alerts` по `load average`.
+
+![Alt](pictures/la_prometheus.png "Screenshot")
+
+![Alt](pictures/la_grafana.png "Screenshot")
+
+Виртуальные машины не нагружались, изменил знак в условии алерта.
 
